@@ -70,11 +70,11 @@ class UnicodeTestGenerator:
             if isSurrogateOrPUA(charname) or not isValidXMLChar(charcode):
                 pass
             elif charname.endswith(", First>"):
-                if rangefirst != None:
+                if rangefirst is not None:
                     raise SyntaxError
                 rangefirst = charcode
             elif charname.endswith(", Last>"):
-                if rangefirst == None:
+                if rangefirst is None:
                     raise SyntaxError
                 if rangefirst >= breakat:
                     # we've exceeded our chunking size; break to a new file
@@ -86,7 +86,7 @@ class UnicodeTestGenerator:
                     self.writeTest(c, ispunct)
                 rangefirst = None
             else:
-                if rangefirst != None:
+                if rangefirst is not None:
                     raise SyntaxError
                 if charcode >= breakat:
                     # we've exceeded our chunking size; break to a new file
