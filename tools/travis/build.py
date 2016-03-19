@@ -26,7 +26,7 @@ def fetch_submodules():
             finally:
                 os.chdir(orig_dir)
         else:
-            hg("clone", ("https://hg.csswg.org/dev/%s" % tool), dest_dir)
+            hg("clone", ("https://hg.csswg.org/dev/{0!s}".format(tool)), dest_dir)
 
 def update_dist():
     if not os.path.exists(built_dir) or not vcs.is_git_root(built_dir):
@@ -120,7 +120,7 @@ def commit(changeset):
     git = vcs.git
 
     msg = git("log", "-r", changeset, "-n", "1", "--pretty=%B", repo=source_dir)
-    msg = "%s\n\nBuild from revision %s" % (msg, changeset)
+    msg = "{0!s}\n\nBuild from revision {1!s}".format(msg, changeset)
 
     git("commit", "-m", msg, repo=built_dir)
 
@@ -130,7 +130,7 @@ def get_new_commits():
     with open(commit_path) as f:
         prev_commit = f.read().strip()
 
-    commit_range = "%s..%s" % (prev_commit, os.environ['TRAVIS_COMMIT'])
+    commit_range = "{0!s}..{1!s}".format(prev_commit, os.environ['TRAVIS_COMMIT'])
     commits = git("log", "--pretty=%H", "-r", commit_range).strip()
     if not commits:
         return []
@@ -145,7 +145,7 @@ def maybe_push():
 
     git = vcs.bind_to_repo(vcs.git, built_dir)
 
-    out = "https://%s@github.com/jgraham/css-test-built.git" % os.environ["TOKEN"]
+    out = "https://{0!s}@github.com/jgraham/css-test-built.git".format(os.environ["TOKEN"])
     git("remote", "add", "out", out, quiet=True)
 
     for i in range(2):
