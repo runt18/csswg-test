@@ -14,7 +14,7 @@ class TestGenerator:
         self.vendor = vendor
         self.output_dir = output_dir
         extMatch = re.search("\.([^\.]+)$", template_file.name)
-        if extMatch == None:
+        if extMatch is None:
             self.ext = "html"
         else:
             self.ext = extMatch.group(1)
