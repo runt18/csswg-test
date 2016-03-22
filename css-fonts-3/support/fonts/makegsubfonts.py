@@ -107,7 +107,7 @@ def makeLookup1():
     for index, tag in enumerate(features):
     
     	# tag.pass
-    	glyphName = "%s.pass" % tag
+    	glyphName = "{0!s}.pass".format(tag)
     	glyphOrder.append(glyphName)
     	addGlyphToCFF(
     		glyphName=glyphName,
@@ -124,11 +124,11 @@ def makeLookup1():
     		if table.format == 4:
     			table.cmap[cp] = glyphName
     		else:
-    			raise NotImplementedError, "Unsupported cmap table format: %d" % table.format
+    			raise NotImplementedError, "Unsupported cmap table format: {0:d}".format(table.format)
     	cp += 1
     
     	# tag.fail
-    	glyphName = "%s.fail" % tag
+    	glyphName = "{0!s}.fail".format(tag)
     	glyphOrder.append(glyphName)
     	addGlyphToCFF(
     		glyphName=glyphName,
@@ -145,7 +145,7 @@ def makeLookup1():
     		if table.format == 4:
     			table.cmap[cp] = glyphName
     		else:
-    			raise NotImplementedError, "Unsupported cmap table format: %d" % table.format
+    			raise NotImplementedError, "Unsupported cmap table format: {0:d}".format(table.format)
 
         # bump this up so that the sequence is the same as the lookup 3 font
     	cp += 3
@@ -209,8 +209,8 @@ def makeLookup1():
         subtable.Format = 2
         subtable.LookupType = 1
         subtable.mapping = {
-            "%s.pass" % tag : "%s.fail" % tag,
-            "%s.fail" % tag : "%s.pass" % tag,
+            "{0!s}.pass".format(tag) : "{0!s}.fail".format(tag),
+            "{0!s}.fail".format(tag) : "{0!s}.pass".format(tag),
         }
         lookup.SubTable.append(subtable)
     
@@ -281,7 +281,7 @@ def makeLookup3():
     for index, tag in enumerate(features):
     
     	# tag.pass
-    	glyphName = "%s.pass" % tag
+    	glyphName = "{0!s}.pass".format(tag)
     	glyphOrder.append(glyphName)
     	addGlyphToCFF(
     		glyphName=glyphName,
@@ -295,7 +295,7 @@ def makeLookup3():
     	hmtx[glyphName] = passGlyphMetrics
      
     	# tag.fail
-    	glyphName = "%s.fail" % tag
+    	glyphName = "{0!s}.fail".format(tag)
     	glyphOrder.append(glyphName)
     	addGlyphToCFF(
     		glyphName=glyphName,
@@ -309,7 +309,7 @@ def makeLookup3():
     	hmtx[glyphName] = failGlyphMetrics
      
     	# tag.default
-    	glyphName = "%s.default" % tag
+    	glyphName = "{0!s}.default".format(tag)
     	glyphOrder.append(glyphName)
     	addGlyphToCFF(
     		glyphName=glyphName,
@@ -326,12 +326,12 @@ def makeLookup3():
     		if table.format == 4:
     			table.cmap[cp] = glyphName
     		else:
-    			raise NotImplementedError, "Unsupported cmap table format: %d" % table.format
+    			raise NotImplementedError, "Unsupported cmap table format: {0:d}".format(table.format)
     	cp += 1
     
     	# tag.alt1,2,3
     	for i in range(1,4):
-    		glyphName = "%s.alt%d" % (tag, i)
+    		glyphName = "{0!s}.alt{1:d}".format(tag, i)
     		glyphOrder.append(glyphName)
     		addGlyphToCFF(
     			glyphName=glyphName,
@@ -347,7 +347,7 @@ def makeLookup3():
     			if table.format == 4:
     				table.cmap[cp] = glyphName
     			else:
-    				raise NotImplementedError, "Unsupported cmap table format: %d" % table.format
+    				raise NotImplementedError, "Unsupported cmap table format: {0:d}".format(table.format)
     		cp += 1
     	
     # set the glyph order
@@ -409,10 +409,10 @@ def makeLookup3():
     	subtable.Format = 1
     	subtable.LookupType = 3
     	subtable.alternates = {
-    		"%s.default" % tag : ["%s.fail" % tag, "%s.fail" % tag, "%s.fail" % tag],
-    		"%s.alt1" % tag    : ["%s.pass" % tag, "%s.fail" % tag, "%s.fail" % tag],
-    		"%s.alt2" % tag    : ["%s.fail" % tag, "%s.pass" % tag, "%s.fail" % tag],
-    		"%s.alt3" % tag    : ["%s.fail" % tag, "%s.fail" % tag, "%s.pass" % tag]
+    		"{0!s}.default".format(tag) : ["{0!s}.fail".format(tag), "{0!s}.fail".format(tag), "{0!s}.fail".format(tag)],
+    		"{0!s}.alt1".format(tag)    : ["{0!s}.pass".format(tag), "{0!s}.fail".format(tag), "{0!s}.fail".format(tag)],
+    		"{0!s}.alt2".format(tag)    : ["{0!s}.fail".format(tag), "{0!s}.pass".format(tag), "{0!s}.fail".format(tag)],
+    		"{0!s}.alt3".format(tag)    : ["{0!s}.fail".format(tag), "{0!s}.fail".format(tag), "{0!s}.pass".format(tag)]
     	}
     	lookup.SubTable.append(subtable)
     
@@ -457,7 +457,7 @@ def makeJavascriptData():
 
     taglist = []
     for tag in features:
-        taglist.append("\"%s\": 0x%x" % (tag, cp))
+        taglist.append("\"{0!s}\": 0x{1:x}".format(tag, cp))
         cp += 4
     
     outStr.append(textwrap.fill(", ".join(taglist), initial_indent="  ", subsequent_indent="  "))

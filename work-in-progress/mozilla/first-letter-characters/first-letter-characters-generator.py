@@ -52,7 +52,7 @@ class UnicodeTestGenerator:
            self.out.write(self.filefooter)
            self.out.close()
         self.filenum += 1
-        self.out = open(self.fileprefix + "%03d" % self.filenum + self.filesuffix, 'w')
+        self.out = open(self.fileprefix + "{0:03d}".format(self.filenum) + self.filesuffix, 'w')
         self.out.write(self.fileheader)
 
     def write(self):
@@ -79,9 +79,9 @@ class UnicodeTestGenerator:
                 if rangefirst >= breakat:
                     # we've exceeded our chunking size; break to a new file
                     self.startNewFile()
-                    print "Break at %x" % breakat
+                    print "Break at {0:x}".format(breakat)
                     breakat = (floor(rangefirst / self.blocksize) + 1) * self.blocksize
-                    print "Next break at %x" % breakat
+                    print "Next break at {0:x}".format(breakat)
                 for c in range(rangefirst, charcode + 1):
                     self.writeTest(c, ispunct)
                 rangefirst = None
@@ -91,9 +91,9 @@ class UnicodeTestGenerator:
                 if charcode >= breakat:
                     # we've exceeded our chunking size; break to a new file
                     self.startNewFile()
-                    print "Break %s at %x for %x" % (self.filenum, breakat, charcode)
+                    print "Break {0!s} at {1:x} for {2:x}".format(self.filenum, breakat, charcode)
                     breakat = (floor(charcode / self.blocksize) + 1) * self.blocksize
-                    print "Next break at %x" % breakat
+                    print "Next break at {0:x}".format(breakat)
                 self.writeTest(charcode, ispunct)
         self.out.write(self.filefooter)
 

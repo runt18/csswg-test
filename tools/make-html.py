@@ -27,7 +27,7 @@ def xhtml2html(source, dest):
 
     # Report errors
     if xs.error:
-      print >>sys.stderr, "Error parsing XHTML file %s: %s" % (source, xs.error)
+      print >>sys.stderr, "Error parsing XHTML file {0!s}: {1!s}".format(source, xs.error)
 
     # Write
     f = open(dest, 'w')
@@ -43,11 +43,11 @@ elif len(sys.argv) == 2 and (sys.argv[1] != '--clobber' and sys.argv[1] != '-f')
     force   = False;
     root    = sys.argv[1]
 else:
-    print "make-html converts all %s XHTML files to %s HTML files." % (srcExt, dstExt)
+    print "make-html converts all {0!s} XHTML files to {1!s} HTML files.".format(srcExt, dstExt)
     print "Only changed files are converted, unless you specify -f."
     print "To use, specify the root directory of the files you want converted, e.g."
     print "  make-html ."
-    print "To delete all files with extension %s, specify the --clobber option." % dstExt
+    print "To delete all files with extension {0!s}, specify the --clobber option.".format(dstExt)
     exit()
 
 for root, dirs, files in os.walk(root):
